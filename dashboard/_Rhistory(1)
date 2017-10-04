@@ -1,0 +1,512 @@
+norm_eucl <- function(m)
+m/apply(m, 1, function(x) sum(x^2)^.5)
+m_norm <- norm_eucl(m)
+results <- kmeans(m_norm, 12, 30)
+clusters <- 1:12
+for (i in clusters) {
+cat("Cluster ", i, ":", findFreqTerms(dtm_tfxidf[results$cluster==i],2),"\n\n")
+}
+corpus <- Corpus(VectorSource(process(full_dataset$status_message)))
+library("e1071")
+library("stringr")
+library("tm")
+corpus <- Corpus(VectorSource(process(full_dataset$status_message)))
+library(readr)
+library(readxl)
+library("plyr")
+library("tm")
+library("class")
+library("RTextTools")
+library("e1071")
+library("stringr")
+library("SnowballC")
+library("data.table")
+library("caret")
+full_dataset <- read_csv("C:/Users/attzhun1/Desktop/full_dataset.csv",
+col_types = cols(status_author_id = col_character()))
+process <- function(text) {
+#Remove non-alphabetical characters
+text <- iconv(text, 'utf-8', 'ascii', sub="")
+#Change to lower case
+text <- tolower(text)
+#Remove stopwords
+text <- removeWords(text, newstopwords$V1)
+#Remove punctuations
+text <- str_replace_all(text,"[[:punct:]]","")
+text <- str_replace_all(text,"[^[:graph:]]", " ")
+#Change to stemwords
+text <- stemDocument(text, language="english")
+text <- trim(text)
+text <- data.frame(text=text)
+#This is to remove empty rows
+text$text[text$text==""] <- NA
+text <- na.omit(text)
+}
+corpus <- Corpus(VectorSource(process(full_dataset$status_message)))
+newstopwords <- fread('http://jmlr.csail.mit.edu/papers/volume5/lewis04a/a11-smart-stop-list/english.stop', header=FALSE)
+#clean up
+cleanset <- tm_map(corpus, removeWords, stopwords("english"))
+cleanset <- tm_map(cleanset, stripWhitespace)
+#Build TDM
+dtm <- DocumentTermMatrix(cleanset)
+#TF-IDF
+dtm_tfxidf <- weightTfIdf(dtm)
+#clustering
+m <- as.matrix(dtm_tfxidf)
+rownames(m) <- 1:nrow(m)
+norm_eucl <- function(m)
+m/apply(m, 1, function(x) sum(x^2)^.5)
+m_norm <- norm_eucl(m)
+results <- kmeans(m_norm, 12, 30)
+clusters <- 1:12
+for (i in clusters) {
+cat("Cluster ", i, ":", findFreqTerms(dtm_tfxidf[results$cluster==i],2),"\n\n")
+}
+newstopwords <- fread('http://jmlr.csail.mit.edu/papers/volume5/lewis04a/a11-smart-stop-list/english.stop', header=FALSE)
+corpus <- Corpus(VectorSource(process(full_dataset$status_message)))
+trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+corpus <- Corpus(VectorSource(process(full_dataset$status_message)))
+data <- process(full_dataset$status_message)
+View(data)
+corpus <- Corpus(VectorSource(data$text))
+dtm <- DocumentTermMatrix(corpus)
+dtm_tfxidf <- weightTfIdf(dtm)
+tm
+dtm
+corpus
+rowTotals <- apply(dtm , 1, sum) #Find the sum of words in each Document
+rowTotals <- apply(dtm , 1, sum) #Find the sum of words in each Document
+dtm.new   <- dtm[rowSums(dtm)> 0, ]
+data1 <- full_dataset
+data1$status_message <- process(data$status_message)
+View(data1)
+data1$status_message <- process(data1$status_message)
+corpus <- Corpus(VectorSource(full_dataset$status_message))
+cleanset <- tm_map(corpus, removeWords, newstopwords)
+cleanset <- tm_map(corpus, removeWords, stopwords("english"))
+cleanset <-  iconv(cleanset, to ="utf-8")
+cleanset <- tm_map(cleanset, removePunctuation)
+full_dataset$status_message <- iconv(full_dataset$status_message, to="utf-8")
+corpus <- Corpus(VectorSource(full_dataset$status_message))
+cleanset <- tm_map(corpus, removeWords, stopwords("english"))
+cleanset <- tm_map(cleanset, removePunctuation)
+cleanset <- tm_map(cleanset, tolower)
+cleanset <- tm_map(cleanset, stripWhitespace)
+dtm <- DocumentTermMatrix(cleanset)
+dtm_tfxidf <- weightTfIdf(dtm)
+dtm.new <- dtm[rowSums(dtm)>0,]
+dim(dtm)
+ph.DTM3 <- rollup(dtm, 2, na.rm=TRUE, FUN = sum)
+library(slam)
+ph.DTM3 <- rollup(dtm, 2, na.rm=TRUE, FUN = sum)
+ph.DTM3
+dtm <- rollup(dtm, 2, na.rm=TRUE, FUN = sum)
+dtm_tfxidf <- weightTfIdf(dtm)
+library(readr)
+library(readxl)
+library("plyr")
+library("tm")
+library("class")
+library("RTextTools")
+library("e1071")
+library("stringr")
+library("SnowballC")
+library("data.table")
+library("caret")
+(dtm)
+dtm_tfxidf <- weightTfIdf(dtm)
+dtm.new <- dtm[rowSums(dtm)>0,]
+dtm <- DocumentTermMatrix(cleanset, removeSparseTerms=0.998)
+dtm <- DocumentTermMatrix(cleanset, sparse=TRUE)
+full_dataset$status_message <- iconv(full_dataset$status_message, to="utf-8")
+corpus <- Corpus(VectorSource(full_dataset$status_message))
+cleanset <- tm_map(corpus, removeWords, stopwords("english"))
+cleanset <- tm_map(cleanset, removePunctuation)
+cleanset <- tm_map(cleanset, tolower)
+cleanset <- tm_map(cleanset, stripWhitespace)
+dtm <- DocumentTermMatrix(cleanset)
+removeSparseTerms(dtm, .99)
+dtm_tfxidf <- weightTfIdf(dtm)
+library(slam)
+freq <- rowapply_simple_triplet_matrix(dtm,sum)
+freq
+dtm <- freq
+dtm_tfxidf <- weightTfIdf(dtm)
+library(readr)
+library(readxl)
+library("plyr")
+library("tm")
+library("class")
+library("RTextTools")
+library("e1071")
+library("stringr")
+library("SnowballC")
+library("data.table")
+library("caret")
+library(readxl)
+singtelfaq <- read_excel("C:/Users/attzhun1/Downloads/singtelfaq.xlsx")
+View(singtelfaq)
+test <- process(singtelfaq$Question)
+View(test)
+library(readr)
+library(readxl)
+library("plyr")
+library("tm")
+library("class")
+library("RTextTools")
+library("e1071")
+library("stringr")
+library("SnowballC")
+library("data.table")
+library("caret")
+library(readxl)
+singtelfaq <- read_excel("C:/Users/attzhun1/Downloads/singtelfaq.xlsx")
+process <- function(text) {
+#Remove non-alphabetical characters
+text <- iconv(text, 'utf-8', 'ascii', sub="")
+#Change to lower case
+text <- tolower(text)
+#Remove stopwords
+text <- removeWords(text, newstopwords$V1)
+#Remove punctuations
+text <- str_replace_all(text,"[[:punct:]]","")
+text <- str_replace_all(text,"[^[:graph:]]", " ")
+#Change to stemwords
+text <- stemDocument(text, language="english")
+text <- trim(text)
+text <- data.frame(text=text)
+#This is to remove empty rows
+text$text[text$text==""] <- NA
+text <- na.omit(text)
+}
+data <- singtelfaq
+data$Question <- process(singtelfaq$Question)
+library(readr)
+library(readxl)
+library("plyr")
+library("tm")
+library("class")
+library("RTextTools")
+library("e1071")
+library("stringr")
+library("SnowballC")
+library("data.table")
+library("caret")
+library(readxl)
+singtelfaq <- read_excel("C:/Users/attzhun1/Downloads/singtelfaq.xlsx")
+newstopwords <- fread('http://jmlr.csail.mit.edu/papers/volume5/lewis04a/a11-smart-stop-list/english.stop', header=FALSE)
+trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+#wordLength function to get number of words
+wordLength <- function (x) sapply(gregexpr("\\S+", x), length)
+process <- function(text) {
+#Remove non-alphabetical characters
+text <- iconv(text, 'utf-8', 'ascii', sub="")
+#Change to lower case
+text <- tolower(text)
+#Remove stopwords
+text <- removeWords(text, newstopwords$V1)
+#Remove punctuations
+text <- str_replace_all(text,"[[:punct:]]","")
+text <- str_replace_all(text,"[^[:graph:]]", " ")
+#Change to stemwords
+text <- stemDocument(text, language="english")
+text <- trim(text)
+text <- data.frame(text=text)
+#This is to remove empty rows
+text$text[text$text==""] <- NA
+text <- na.omit(text)
+}
+data <- singtelfaq
+data$Question <- process(singtelfaq$Question)
+View(data)
+data <- data.frame(data$Question.text, data$Answer)
+data <- data.frame(data$Question, data$Answer)
+data <- data.frame(Question=data$Question, Answer=data$Answer)
+library(readr)
+library(readxl)
+library("plyr")
+library("tm")
+library("class")
+library("RTextTools")
+library("e1071")
+library("stringr")
+library("SnowballC")
+library("data.table")
+library("caret")
+library(readxl)
+singtelfaq <- read_excel("C:/Users/attzhun1/Downloads/singtelfaq.xlsx")
+newstopwords <- fread('http://jmlr.csail.mit.edu/papers/volume5/lewis04a/a11-smart-stop-list/english.stop', header=FALSE)
+trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+#wordLength function to get number of words
+wordLength <- function (x) sapply(gregexpr("\\S+", x), length)
+process <- function(text) {
+#Remove non-alphabetical characters
+text <- iconv(text, 'utf-8', 'ascii', sub="")
+#Change to lower case
+text <- tolower(text)
+#Remove stopwords
+text <- removeWords(text, newstopwords$V1)
+#Remove punctuations
+text <- str_replace_all(text,"[[:punct:]]","")
+text <- str_replace_all(text,"[^[:graph:]]", " ")
+#Change to stemwords
+text <- stemDocument(text, language="english")
+text <- trim(text)
+text <- data.frame(text=text)
+#This is to remove empty rows
+text$text[text$text==""] <- NA
+text <- na.omit(text)
+}
+data <- singtelfaq
+data$Question <- process(singtelfaq$Question)
+data <- data.frame(Question=data$Question, Answer=data$Answer)
+library(readr)
+library(readxl)
+library("plyr")
+library("tm")
+library("class")
+library("RTextTools")
+library("e1071")
+library("stringr")
+library("SnowballC")
+library("data.table")
+library("caret")
+library(readxl)
+singtelfaq <- read_excel("C:/Users/attzhun1/Downloads/singtelfaq.xlsx")
+newstopwords <- fread('http://jmlr.csail.mit.edu/papers/volume5/lewis04a/a11-smart-stop-list/english.stop', header=FALSE)
+trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+#wordLength function to get number of words
+wordLength <- function (x) sapply(gregexpr("\\S+", x), length)
+process <- function(text) {
+#Remove non-alphabetical characters
+text <- iconv(text, 'utf-8', 'ascii', sub="")
+#Change to lower case
+text <- tolower(text)
+#Remove stopwords
+text <- removeWords(text, newstopwords$V1)
+#Remove punctuations
+text <- str_replace_all(text,"[[:punct:]]","")
+text <- str_replace_all(text,"[^[:graph:]]", " ")
+#Change to stemwords
+text <- stemDocument(text, language="english")
+text <- trim(text)
+text <- data.frame(text=text)
+#This is to remove empty rows
+text$text[text$text==""] <- NA
+text <- na.omit(text)
+}
+data <- singtelfaq
+data$Question <- process(singtelfaq$Question)
+data <- data.frame(data$Question, Answer=data$Answer)
+data1 <- unique(data)
+View(data1)
+data <- singtelfaq
+data$Question <- process(singtelfaq$Question)
+data <- data.frame(data$Question, Answer=data$Answer)
+data_unique <- unique(data)
+matrix <- create_matrix(data_unique$text, language='english', removeNumbers=F, toLower=F, removePunctuation=F,
+stemWords=F, removeSparseTerms=0.998)
+mat <- as.matrix(matrix)
+#NaiveBayes
+nb_classifier = naiveBayes(mat, as.factor(data_unique$Answer))
+cat(predictTest("Where to recontract my plan?", mat, nb_classifier))
+predictTest <- function(test_text, mat, classifier){
+train_mat = mat[1:2,]
+train_mat[,1:ncol(train_mat)] = 0
+test_text = stemDocument(test_text)
+test_matrix = create_matrix(test_text, language="english",
+removeStopwords=T, removeNumbers=T,toLower=T, removePunctuation=T)
+test_mat <- as.matrix(test_matrix)
+for(col in colnames(test_mat)){
+if(col %in% colnames(train_mat))
+{
+train_mat[2,col] = test_mat[1,col];
+}
+}
+#test_mat = as.matrix(t(test_mat))
+row.names(train_mat)[1] = ""
+row.names(train_mat)[2] = test_text
+p <- predict(classifier, train_mat[1:2,])
+as.character(p[2])
+}
+cat(predictTest("Where to recontract my plan?", mat, nb_classifier))
+nb_classifier
+View(data_unique)
+data_unique$Answer
+data_unique$text
+data_unique$Answer
+cat(predictTest("WH?", mat, nb_classifier))
+cat(predictTest("WHY is this good?", mat, nb_classifier))
+nb_classifier
+nb_classifier = naiveBayes(mat, data_unique$Answer)
+cat(predictTest("WHY is this good?", mat, nb_classifier))
+predict(nb_classifer, data_unique$text)
+predict(nb_classifier, data_unique$text)
+nb_model <- naiveBayes(Answer~.,data=data_unique)
+nb_model
+nb_test <- predict(nb_model, data_unique$text)
+nb_test
+container <- create_container(matrix, data_unique$Answer, trainSize=1:45, virgin = FALSE)
+model <- train_model(container, "SVM", kernel="linear", cost=1)
+cat(predictTest("Where to recontract my plan?", mat, model))
+cat(predictTest("I need to pay my bills, where can i pay them?", mat, model))
+cat(predictTest("I want to upsize my data plan, how can i do that?", mat, model))
+cat(predictTest("where to check data roaming charges?", mat, model))
+cat(predictTest("I want to top up my prepaid sim card, where can I do it?", mat, model))
+View(newstopwords)
+cat(predictTest("Singtel sucks, I want to complain?", mat, model))
+cat(predictTest("Singtel sucks, I want to complain!!!", mat, model))
+shiny::runApp('test2')
+runApp('test2')
+runApp('test2', display.mode="showcase")
+runApp('test2')
+source(FAQ.R)
+source(FAQ.R)
+source(FAQ.R)
+library(shiny)
+source("FAQ.R")
+source("Text V2.R")
+library(shiny)
+source("FAQ.R")
+source("Text V2.R")
+source("FAQ.R")
+setwd("C:/Users/attzhun1/Downloads/dashboard")
+shiny::runApp()
+install.packages("DT")
+runApp()
+install.packages("shinydashboard")
+runApp()
+runApp()
+runApp()
+runApp()
+runApp()
+a(h4("Open Link"), target = "_blank", href = paste0("http://www.somesite/", some_link))
+a(h4("Open Link"), target = "_blank", href = paste0("http://www.somesite/"))
+runApp()
+runApp()
+runApp()
+runApp()
+htmlOutput("mySite")
+output$mySite <- renderUI({
+href=substring(testRF[input$testRF_rows_selected,1], 13)
+})
+runApp()
+runApp()
+htmlOutput("mySite")
+a("Facebook", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[1,1], 13))
+a("Facebook", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[1,1], 13)))
+a("Facebook", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[1,1], 13)))
+x <- a("Facebook", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[1,1], 13)))
+htmlOutput(x)
+uiOutput(x)
+x <- tags$a(href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[1,1], 13)))
+x
+htmlOutput(x)
+uiOutput(x)
+runApp()
+runApp()
+a("Twitter", class="web", href="https://twitter.com/jdoe")
+a("Facebook", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[input$testRF_rows_selected,1], 13))
+)
+a("Facebook", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[1,1], 13))
+)
+runApp()
+runApp()
+runApp()
+runApp()
+runApp()
+runApp()
+runApp()
+a("Reply Comment", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[input$testRF_rows_selected,1], 13))
+)
+a("Reply Comment", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[input$1,1], 13))
+)
+a("Reply Comment", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[1,1], 13))
+)
+htmlOutput(a("Reply Comment", class="web",
+href=paste0("https://www.facebook.com/singtel/posts/", substring(testRF[1,1], 13))
+))
+runApp()
+runApp()
+runApp()
+runApp()
+runApp()
+runApp()
+install.packages("plotly")
+p <- plot_ly(testRF$Sentiment, labels = ~Sentiment,  type = 'pie') %>%
+layout(title = 'Test',
+xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+library(plotly)
+p <- plot_ly(testRF$Sentiment, labels = ~Sentiment,  type = 'pie') %>%
+layout(title = 'Test',
+xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+p <- plot_ly(testRF, labels = ~Sentiment,  type = 'pie') %>%
+layout(title = 'Test',
+xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+chart_link = plotly_POST(p, filename="pie/basic")
+runApp()
+runApp()
+runApp()
+pie(testRF$Sentiment)
+pie(table(testRF$Sentiment))
+pie(table(testRF$Sentiment), colour=c("green","red","blue"))
+pie(table(testRF$Sentiment), color=c("green","red","blue"))
+pie(table(testRF$Sentiment), color=c("green","red","blue"))
+warnings()
+pie(table(testRF$Sentiment), colours=c("green","red","blue"))
+colors = c("green", "red", "blue")
+colours = c("green", "red", "blue")
+pie(table(testRF$Sentiment), col=colours)
+colours = c("red", "blue", "green")
+pie(table(testRF$Sentiment), col=colours)
+View(testRF)
+runApp()
+runApp()
+runApp()
+runApp()
+ggplot(testRF,
+aes(Sentiment, fill = Sentiment)) +
+geom_bar()
+runApp()
+runApp()
+runApp()
+runApp()
+unique(testRF$`Author ID`)
+nrows(unique(testRF$`Author ID`))
+nrow(unique(testRF$`Author ID`))
+table(unique(testRF$`Author ID`)
+)
+table(unique(testRF$`Author ID`))
+nrow(table(unique(testRF$`Author ID`)))
+runApp()
+runApp()
+runApp()
+runApp()
+runApp()
+runApp()
+library(shinyapps)
+install.packages("shinyapps")
+devtools::install_github("rstudio/shinyapps")
+install.packages("shinyapps", type="source")
+install.packages("shinyapps", type="source")
+devtools::install_github("rstudio/shinyapps")
+options(RCurlOptions = list(proxy = "http://user:pwd@proxy:port"))
+options(shinyapps.http = "rcurl")
+library(shinyapps)
+install.packages("shinyapps")
+library(rsconnect)
+?rsconnect::setAccountInfo
+rsconnect::setAccountInfo(name='badiamondsdash', token='1F5DDE36150A0B8F3DD6B554776E0D9C', secret='Dz2fWexhAohgIp8mfq1+jBIbel6/PM4aq4Rx/5Z1')
+library(devtools)
